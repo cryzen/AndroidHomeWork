@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidHomeWork</string>
+    <string name="send_message_button">Send Message</string>
+    <string name="message">empty message</string>
+    <string name="receiver_message">no one new message</string>
+    <string name="read_button">Read</string>
+    <string name="read_messages">All messages is read</string>
+</resources>
