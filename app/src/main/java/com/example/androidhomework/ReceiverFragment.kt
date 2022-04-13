@@ -14,6 +14,34 @@ class ReceiverFragment : Fragment() {
     private lateinit var receiverMessage: TextView
     private lateinit var viewModel: ReceiverViewModel
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return inflater.inflate(R.layout.fragment_receiver, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        receiverMessage = view.findViewById(R.id.receiver_message)
+
+        viewModel = ViewModelProvider(this).get(ReceiverViewModel::class.java)
+
+        viewModel.messageLiveData.observe(viewLifecycleOwner) { message ->
+            receiverMessage.text = message
+        }
+
+        val textMessage = arguments?.getString(MESSAGE_KEY)
+        viewModel.setMessage(textMessage.toString())
+
+        view.findViewById<Button>(R.id.read_button).setOnClickListener {
+            viewModel.setMessage(getString(R.string.read_messages))
+        }
+    }
+
     companion object {
         private const val MESSAGE_KEY = "MESSAGE_KEY"
 
@@ -24,33 +52,4 @@ class ReceiverFragment : Fragment() {
                 arguments = bundle
             }
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        viewModel = ViewModelProvider(this).get(ReceiverViewModel::class.java)
-
-        viewModel.messageLiveData.observe(viewLifecycleOwner) { message ->
-            receiverMessage.text = message
-        }
-
-        return inflater.inflate(R.layout.fragment_receiver, container, false)
-    }
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        receiverMessage = view.findViewById(R.id.receiver_message)
-        val textMessage = arguments?.getString(MESSAGE_KEY)
-        receiverMessage.text = textMessage
-
-        view.findViewById<Button>(R.id.read_button).setOnClickListener {
-            receiverMessage.setText(R.string.read_messages)
-            viewModel.addMessage(receiverMessage.text.toString())
-        }
-    }
-
 }

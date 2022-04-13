@@ -11,7 +11,7 @@ class ReceiverViewModel : ViewModel() {
     val messageLiveData: LiveData<String>
         get() = messageMutableLiveData
 
-    fun addMessage(message: String) {
+    fun setMessage(message: String) {
         messageMutableLiveData.value =  message
     }
 }
