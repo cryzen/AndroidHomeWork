@@ -11,7 +11,6 @@ import android.widget.TextView
 
 class ReceiverFragment : Fragment() {
 
-    private lateinit var receiverMessage: TextView
     private lateinit var viewModel: ReceiverViewModel
 
     override fun onCreateView(
@@ -22,11 +21,10 @@ class ReceiverFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_receiver, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        receiverMessage = view.findViewById(R.id.receiver_message)
+        val receiverMessage = view.findViewById<TextView>(R.id.receiver_message)
 
         viewModel = ViewModelProvider(this).get(ReceiverViewModel::class.java)
 
