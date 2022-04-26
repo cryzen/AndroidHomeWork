@@ -32,11 +32,13 @@ class ReceiverFragment : Fragment() {
             receiverMessage.text = message
         }
 
-        val textMessage = arguments?.getString(MESSAGE_KEY)
-        viewModel.setMessage(textMessage.toString())
+        if (savedInstanceState == null) {
+            val textMessage = arguments?.getString(MESSAGE_KEY)
+            viewModel.setMessage(textMessage.toString())
 
-        view.findViewById<Button>(R.id.read_button).setOnClickListener {
-            viewModel.setMessage(getString(R.string.read_messages))
+            view.findViewById<Button>(R.id.read_button).setOnClickListener {
+                viewModel.setMessage(getString(R.string.read_messages))
+            }
         }
     }
 
